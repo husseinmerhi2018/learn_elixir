@@ -1,26 +1,29 @@
 defmodule LearnElixir do
-  @moduledoc """
-  Contains usefull functions for daily basis
-  """
+  use GenServer
 
-  @doc """
-  convert all map keys from string to atom
+  # Callbacks
 
-  ## Examples
+  def start_link do
+    GenServer.start_link(__MODULE__, [:hello])
+  end
 
-      iex> LearnElixir.atomize_keys_map(%{"id": 1, "name": "hussein"})   
-      %{id: 1, name: "hussein"}
+  def init(stack) do
+    {:ok, stack}
+  end
 
-  """
-  @spec atomize_keys_map(Map.m()) :: Map.m()
-  def atomize_keys_map(m) do
-    m
-    |> Map.new(fn {key, value} ->
-      if is_binary(key) do
-        {String.to_atom(key), value}
-      else
-        {key, value}
-      end
-    end)
+  def handle_call(:pop, _from, [head | tail]) do
+    {:reply, head, tail}
+  end
+
+  def handle_cast({:push, item}, state) do
+    {:noreply, [item | state]}
   end
 end
+
+# {:ok, pid} = GenServer.start_link(Stack, [:hello])
+
+# GenServer.call(pid, :pop)
+
+# GenServer.cast(pid, {:push, :world})
+
+# GenServer.call(pid, :pop)
