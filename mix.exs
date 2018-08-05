@@ -47,9 +47,7 @@ defmodule LearnElixir.MixProject do
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: @maintainers,
       licenses: ["MIT"],
-      links: %{"GitHub" => @url,
-        "Docs" => @docs
-      }
+      links: %{"GitHub" => @url, "Docs" => @docs}
     ]
   end
 end
